@@ -1,0 +1,6 @@
+/.vscode
+/build
+/src/location.hh
+/src/parser.cpp
+/src/parser.h
+/src/scanner.cpp
