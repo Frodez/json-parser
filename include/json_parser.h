@@ -7,8 +7,8 @@
 
 namespace json {
 
-    std::unique_ptr<JsonNode> deserialize(const std::string& str);
+std::unique_ptr<JsonNode> deserialize(const std::string& str);
 
-    std::string serialize(std::unique_ptr<JsonNode>& node);
+std::string serialize(const std::unique_ptr<JsonNode>& node);
 
 }

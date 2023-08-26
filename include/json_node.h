@@ -1,65 +1,83 @@
 #pragma once
 
-#include <string>
 #include <memory>
 #include <optional>
-#include <vector>
+#include <string>
 #include <unordered_map>
+#include <vector>
 
-namespace json
-{
+namespace json {
 
-    struct JsonNode;
-    struct JsonObject;
-    struct JsonArray;
-    struct JsonString;
-    struct JsonNumber;
+struct JsonNode;
+struct JsonObject;
+struct JsonArray;
+struct JsonString;
+struct JsonNumber;
 
-    struct JsonNode
-    {
-        virtual ~JsonNode(){};
-    };
+struct JsonNode {
+    JsonNode();
+    JsonNode(JsonNode const& other);
+    JsonNode& operator=(JsonNode const& other);
+    virtual std::unique_ptr<JsonNode> clone();
+    virtual ~JsonNode();
+};
 
-    struct JsonObject : JsonNode
-    {
-        JsonObject() : _attributes{} {}
-        JsonObject(std::unordered_map<std::string, std::unique_ptr<json::JsonNode>> &&attributes) : _attributes{std::move(attributes)} {}
-        virtual ~JsonObject(){};
-        std::unordered_map<std::string, std::unique_ptr<json::JsonNode>> _attributes;
-    };
+struct JsonObject final : JsonNode {
+    JsonObject();
+    JsonObject(std::unordered_map<std::string, std::unique_ptr<json::JsonNode>>&& attributes);
+    JsonObject(JsonObject const& other);
+    JsonObject& operator=(JsonObject const& other);
+    std::unique_ptr<JsonNode> clone() override;
+    virtual ~JsonObject();
+    std::unordered_map<std::string, std::unique_ptr<json::JsonNode>> _attributes;
+};
 
-    struct JsonArray : JsonNode
-    {
-        JsonArray() : _elements{} {}
-        JsonArray(std::vector<std::unique_ptr<json::JsonNode>>&& elements) : _elements{std::move(elements)} {}
-        virtual ~JsonArray(){};
-        std::vector<std::unique_ptr<json::JsonNode>> _elements;
-    };
+struct JsonArray final : JsonNode {
+    JsonArray();
+    JsonArray(std::vector<std::unique_ptr<json::JsonNode>>&& elements);
+    JsonArray(JsonArray const& other);
+    JsonArray& operator=(JsonArray const& other);
+    std::unique_ptr<JsonNode> clone() override;
+    virtual ~JsonArray();
+    std::vector<std::unique_ptr<json::JsonNode>> _elements;
+};
 
-    struct JsonString : JsonNode
-    {
-        JsonString(const std::string &value) : _value{value} {}
-        virtual ~JsonString(){};
-        std::string _value;
-    };
+struct JsonString final : JsonNode {
+    JsonString();
+    JsonString(const std::string& value);
+    JsonString(JsonString const& other);
+    JsonString& operator=(JsonString const& other);
+    std::unique_ptr<JsonNode> clone() override;
+    virtual ~JsonString();
+    std::string _value;
+};
 
-    struct JsonNumber : JsonNode
-    {
-        JsonNumber(double value) : _value{value} {}
-        virtual ~JsonNumber(){};
-        double _value;
-    };
+struct JsonNumber final : JsonNode {
+    JsonNumber();
+    JsonNumber(double value);
+    JsonNumber(JsonNumber const& other);
+    JsonNumber& operator=(JsonNumber const& other);
+    std::unique_ptr<JsonNode> clone() override;
+    virtual ~JsonNumber();
+    double _value;
+};
 
-    struct JsonBoolean : JsonNode
-    {
-        JsonBoolean(bool value) : _value{value} {}
-        virtual ~JsonBoolean(){};
-        bool _value;
-    };
+struct JsonBoolean final : JsonNode {
+    JsonBoolean();
+    JsonBoolean(bool value);
+    JsonBoolean(JsonBoolean const& other);
+    JsonBoolean& operator=(JsonBoolean const& other);
+    std::unique_ptr<JsonNode> clone() override;
+    virtual ~JsonBoolean();
+    bool _value;
+};
 
-    struct JsonNull : JsonNode
-    {
-        virtual ~JsonNull(){};
-    };
+struct JsonNull final : JsonNode {
+    JsonNull();
+    JsonNull(JsonNull const& other);
+    JsonNull& operator=(JsonNull const& other);
+    std::unique_ptr<JsonNode> clone() override;
+    virtual ~JsonNull();
+};
 
 };
