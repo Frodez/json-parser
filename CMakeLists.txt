@@ -92,6 +92,8 @@ ${PROJECT_SOURCE_DIR}/src/parser.cpp
 DEFINES_FILE ${PROJECT_SOURCE_DIR}/src/parser.h
 COMPILE_FLAGS "${BISON_FLAGS}")
 
+add_custom_target(gen_flex_bison DEPENDS ${PROJECT_SOURCE_DIR}/src/scanner.cpp ${PROJECT_SOURCE_DIR}/src/parser.cpp)
+
 add_flex_bison_dependency(LEXER PARSER)
 
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
