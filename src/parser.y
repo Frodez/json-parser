@@ -68,45 +68,45 @@ namespace json {
 
 json:       value { 
                 auto raw_ptr = $1.get();
-                root.reset(dynamic_cast<json::JsonNode*>(raw_ptr)); 
+                root.reset(static_cast<json::JsonNode*>(raw_ptr)); 
                 $1.release();
             }
     ;
 
 value:      object { 
                 auto raw_ptr = $1.get();
-                $$.reset(dynamic_cast<json::JsonNode*>(raw_ptr)); 
+                $$.reset(static_cast<json::JsonNode*>(raw_ptr)); 
                 $1.release();
             }
     |       array { 
                 auto raw_ptr = $1.get();
-                $$.reset(dynamic_cast<json::JsonNode*>(raw_ptr)); 
+                $$.reset(static_cast<json::JsonNode*>(raw_ptr)); 
                 $1.release();
             }
     |       NULL { 
                 auto raw_ptr = new json::JsonNull();
-                $$.reset(dynamic_cast<json::JsonNode*>(raw_ptr)); 
+                $$.reset(static_cast<json::JsonNode*>(raw_ptr)); 
             }
     |       BOOLEAN { 
                 auto raw_ptr = new json::JsonBoolean($1);
-                $$.reset(dynamic_cast<json::JsonNode*>(raw_ptr)); 
+                $$.reset(static_cast<json::JsonNode*>(raw_ptr)); 
             }
     |       NUMBER { 
                 auto raw_ptr = new json::JsonNumber($1);
-                $$.reset(dynamic_cast<json::JsonNode*>(raw_ptr)); 
+                $$.reset(static_cast<json::JsonNode*>(raw_ptr)); 
             }
     |       STRING { 
                 auto raw_ptr = new json::JsonString(std::move($1));
-                $$.reset(dynamic_cast<json::JsonNode*>(raw_ptr)); 
+                $$.reset(static_cast<json::JsonNode*>(raw_ptr)); 
             }
 
 object:     LBRACE RBRACE { 
                 auto raw_ptr = new json::JsonObject();
-                $$.reset(dynamic_cast<json::JsonObject*>(raw_ptr)); 
+                $$.reset(static_cast<json::JsonObject*>(raw_ptr)); 
             }
     |       LBRACE members RBRACE { 
                 auto raw_ptr = new json::JsonObject(std::move($2));
-                $$.reset(dynamic_cast<json::JsonObject*>(raw_ptr)); 
+                $$.reset(static_cast<json::JsonObject*>(raw_ptr)); 
             }
 
 members:    member { 
