@@ -22,13 +22,15 @@ JsonObject::JsonObject(std::unordered_map<std::string, std::unique_ptr<json::Jso
 }
 JsonObject::JsonObject(JsonObject const& other)
 : JsonNode {}
-, _attributes { other._attributes.size() } {
+, _attributes {} {
+    _attributes.reserve(other._attributes.size());
     for (auto it = other._attributes.begin(); it != other._attributes.end(); it++) {
         _attributes.emplace(it->first, it->second->clone());
     }
 }
 JsonObject& JsonObject::operator=(JsonObject const& other) {
-    std::unordered_map<std::string, std::unique_ptr<json::JsonNode>> attributes { other._attributes.size() };
+    std::unordered_map<std::string, std::unique_ptr<json::JsonNode>> attributes {};
+    attributes.reserve(other._attributes.size());
     for (auto it = other._attributes.begin(); it != other._attributes.end(); it++) {
         attributes.emplace(it->first, it->second->clone());
     }
@@ -52,13 +54,15 @@ JsonArray::JsonArray(std::vector<std::unique_ptr<json::JsonNode>>&& elements)
 }
 JsonArray::JsonArray(JsonArray const& other)
 : JsonNode {}
-, _elements { other._elements.size() } {
+, _elements {} {
+    _elements.reserve(other._elements.size());
     for (auto it = other._elements.begin(); it != other._elements.end(); it++) {
         _elements.emplace_back((*it)->clone());
     }
 }
 JsonArray& JsonArray::operator=(JsonArray const& other) {
-    std::vector<std::unique_ptr<json::JsonNode>> elements { other._elements.size() };
+    std::vector<std::unique_ptr<json::JsonNode>> elements {};
+    _elements.reserve(other._elements.size());
     for (auto it = other._elements.begin(); it != other._elements.end(); it++) {
         elements.emplace_back((*it)->clone());
     }
