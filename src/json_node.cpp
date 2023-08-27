@@ -5,6 +5,8 @@ namespace json {
 JsonNode::JsonNode() = default;
 JsonNode::JsonNode(JsonNode const& other) = default;
 JsonNode& JsonNode::operator=(JsonNode const& other) = default;
+JsonNode::JsonNode(JsonNode && other) = default;
+JsonNode& JsonNode::operator=(JsonNode && other) = default;
 std::unique_ptr<JsonNode> JsonNode::clone() {
     auto raw_ptr = new JsonNode(*this);
     return std::unique_ptr<JsonNode>(static_cast<JsonNode*>(raw_ptr));
@@ -37,6 +39,8 @@ JsonObject& JsonObject::operator=(JsonObject const& other) {
     this->_attributes = std::move(attributes);
     return *this;
 }
+JsonObject::JsonObject(JsonObject && other) = default;
+JsonObject& JsonObject::operator=(JsonObject && other) = default;
 std::unique_ptr<JsonNode> JsonObject::clone() {
     auto raw_ptr = new JsonObject(*this);
     return std::unique_ptr<JsonNode>(static_cast<JsonNode*>(raw_ptr));
@@ -69,6 +73,8 @@ JsonArray& JsonArray::operator=(JsonArray const& other) {
     this->_elements = std::move(elements);
     return *this;
 }
+JsonArray::JsonArray(JsonArray && other) = default;
+JsonArray& JsonArray::operator=(JsonArray && other) = default;
 std::unique_ptr<JsonNode> JsonArray::clone() {
     auto raw_ptr = new JsonArray(*this);
     return std::unique_ptr<JsonNode>(static_cast<JsonNode*>(raw_ptr));
@@ -83,6 +89,8 @@ JsonString::JsonString(const std::string& value)
 }
 JsonString::JsonString(JsonString const& other) = default;
 JsonString& JsonString::operator=(JsonString const& other) = default;
+JsonString::JsonString(JsonString && other) = default;
+JsonString& JsonString::operator=(JsonString && other) = default;
 std::unique_ptr<JsonNode> JsonString::clone() {
     auto raw_ptr = new JsonString(*this);
     return std::unique_ptr<JsonNode>(static_cast<JsonNode*>(raw_ptr));
@@ -97,6 +105,8 @@ JsonNumber::JsonNumber(double value)
 }
 JsonNumber::JsonNumber(JsonNumber const& other) = default;
 JsonNumber& JsonNumber::operator=(JsonNumber const& other) = default;
+JsonNumber::JsonNumber(JsonNumber && other) = default;
+JsonNumber& JsonNumber::operator=(JsonNumber && other) = default;
 std::unique_ptr<JsonNode> JsonNumber::clone() {
     auto raw_ptr = new JsonNumber(*this);
     return std::unique_ptr<JsonNode>(static_cast<JsonNode*>(raw_ptr));
@@ -110,6 +120,8 @@ JsonBoolean::JsonBoolean(bool value)
 }
 JsonBoolean::JsonBoolean(JsonBoolean const& other) = default;
 JsonBoolean& JsonBoolean::operator=(JsonBoolean const& other) = default;
+JsonBoolean::JsonBoolean(JsonBoolean && other) = default;
+JsonBoolean& JsonBoolean::operator=(JsonBoolean && other) = default;
 std::unique_ptr<JsonNode> JsonBoolean::clone() {
     auto raw_ptr = new JsonBoolean(*this);
     return std::unique_ptr<JsonNode>(static_cast<JsonNode*>(raw_ptr));
@@ -120,6 +132,8 @@ JsonBoolean::~JsonBoolean() = default;
 JsonNull::JsonNull() = default;
 JsonNull::JsonNull(JsonNull const& other) = default;
 JsonNull& JsonNull::operator=(JsonNull const& other) = default;
+JsonNull::JsonNull(JsonNull && other) = default;
+JsonNull& JsonNull::operator=(JsonNull && other) = default;
 std::unique_ptr<JsonNode> JsonNull::clone() {
     auto raw_ptr = new JsonNull(*this);
     return std::unique_ptr<JsonNode>(static_cast<JsonNode*>(raw_ptr));

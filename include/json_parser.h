@@ -1,9 +1,9 @@
 #pragma once
 
-#include "json_node.h"
-
 #include <memory>
 #include <string>
+
+#include "json_node.h"
 
 namespace json {
 
